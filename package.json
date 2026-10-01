@@ -1,0 +1,70 @@
+{
+    "name": "@neokaal/codenames",
+    "version": "0.1.0",
+    "description": "Memorable codename generator for releases, projects, and environments",
+    "keywords": [
+        "codename",
+        "generator",
+        "release-names",
+        "project-names",
+        "naming",
+        "cli"
+    ],
+    "homepage": "https://github.com/neokaal/codenames#readme",
+    "bugs": {
+        "url": "https://github.com/neokaal/codenames/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/neokaal/codenames.git"
+    },
+    "license": "Apache-2.0",
+    "author": "Neokaal Tech Private Limited",
+    "type": "module",
+    "publishConfig": {
+        "access": "public"
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./dist/index.d.ts",
+                "require": "./dist/index.d.cts"
+            },
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        },
+        "./package.json": "./package.json"
+    },
+    "bin": {
+        "codenames": "./bin/cli.js"
+    },
+    "files": [
+        "dist",
+        "bin"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "compile": "tsc --noEmit",
+        "lint": "eslint --config ./eslint.config.cjs src/",
+        "fix": "eslint --config ./eslint.config.cjs src/ --fix",
+        "format": "prettier --write .",
+        "clean": "node -e \"require('fs').rmSync('dist', {recursive: true, force: true})\"",
+        "test:unit": "vitest run --coverage",
+        "test:data": "node scripts/validate-data.js",
+        "test": "npm run test:data && npm run test:unit"
+    },
+    "devDependencies": {
+        "@types/node": "^22.20.4",
+        "@vitest/coverage-v8": "^5.0.3",
+        "gts": "^7.0.0",
+        "tsup": "^8.5.1",
+        "typescript": "^5.9.3",
+        "vitest": "^5.0.3"
+    },
+    "dependencies": {
+        "color-name-list": "^10.27.0"
+    }
+}

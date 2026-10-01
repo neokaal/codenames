@@ -1,0 +1,41 @@
+name: CI & Code Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Lint, Test & Quality Gates
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Linter (Google TypeScript Style)
+        run: npm run lint
+
+      - name: Run Test Suite with Coverage Gates
+        run: npm test
+
+      - name: Build Library Bundle
+        run: npm run build
+
+      - name: Dry-Run Packaging Verification
+        run: npm pack --dry-run
