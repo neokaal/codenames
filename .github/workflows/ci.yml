@@ -31,11 +31,11 @@ jobs:
       - name: Run Linter (Google TypeScript Style)
         run: npm run lint
 
-      - name: Run Test Suite with Coverage Gates
-        run: npm test
-
       - name: Build Library Bundle
         run: npm run build
+
+      - name: Run Test Suite with Coverage Gates
+        run: npm test
 
       - name: Dry-Run Packaging Verification
         run: npm pack --dry-run
